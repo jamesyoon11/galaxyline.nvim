@@ -24,7 +24,7 @@ local function get_nvim_lsp_diagnostic(diag_type)
     clients = vim.lsp.buf_get_clients()
   end
 
-  if next(clients(0)) == nil then return '' end
+  if next(clients) == nil then return '' end
   -- local active_clients = lsp.get_active_clients()
   local active_clients = {}
 
@@ -53,7 +53,7 @@ function M.get_diagnostic_error()
   end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('error')
-  elseif not vim.tbl_isempty(clients(0)) then
+  elseif not vim.tbl_isempty(clients) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.ERROR)
   end
   return ''
@@ -70,7 +70,7 @@ function M.get_diagnostic_warn()
   end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('warning')
-  elseif not vim.tbl_isempty(clients(0)) then
+  elseif not vim.tbl_isempty(clients) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.WARN)
   end
   return ''
@@ -88,7 +88,7 @@ function M.get_diagnostic_hint()
   end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('hint')
-  elseif not vim.tbl_isempty(clients(0)) then
+  elseif not vim.tbl_isempty(clients) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.HINT)
   end
   return ''
@@ -105,7 +105,7 @@ function M.get_diagnostic_info()
   end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('information')
-  elseif not vim.tbl_isempty(clients(0)) then
+  elseif not vim.tbl_isempty(clients) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.INFO)
   end
   return ''
