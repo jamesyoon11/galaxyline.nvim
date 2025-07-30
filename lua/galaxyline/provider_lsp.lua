@@ -1,7 +1,16 @@
 local get_lsp_client = function (msg)
   msg = msg or 'No Active Lsp'
   local buf_ft = vim.api.nvim_buf_get_option(0,'filetype')
-  local clients = vim.lsp.get_active_clients()
+  -- local clients = vim.lsp.get_active_clients()
+  local clients = {}
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.get_active_clients()
+  end
+
   if next(clients) == nil then
     return msg
   end
