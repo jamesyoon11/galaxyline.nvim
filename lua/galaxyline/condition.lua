@@ -33,7 +33,15 @@ function M.hide_in_width()
 end
 
 function M.check_active_lsp()
-  local clients = vim.lsp.buf_get_clients()
+  local clients ={} 
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.buf_get_clients()
+  end
+
   if next(clients) == nil then
     return false
   end

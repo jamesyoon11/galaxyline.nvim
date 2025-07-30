@@ -14,7 +14,17 @@ end
 -- nvim-lspconfig
 -- see https://github.com/neovim/nvim-lspconfig
 local function get_nvim_lsp_diagnostic(diag_type)
-  if next(lsp.buf_get_clients(0)) == nil then return '' end
+
+  local clients ={} 
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.buf_get_clients()
+  end
+
+  if next(clients(0)) == nil then return '' end
   -- local active_clients = lsp.get_active_clients()
   local active_clients = {}
 
@@ -32,36 +42,70 @@ local function get_nvim_lsp_diagnostic(diag_type)
 end
 
 function M.get_diagnostic_error()
+
+  local clients ={} 
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.buf_get_clients()
+  end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('error')
-  elseif not vim.tbl_isempty(lsp.buf_get_clients(0)) then
+  elseif not vim.tbl_isempty(clients(0)) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.ERROR)
   end
   return ''
 end
 
 function M.get_diagnostic_warn()
+  local clients ={} 
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.buf_get_clients()
+  end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('warning')
-  elseif not vim.tbl_isempty(lsp.buf_get_clients(0)) then
+  elseif not vim.tbl_isempty(clients(0)) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.WARN)
   end
   return ''
 end
 
 function M.get_diagnostic_hint()
+
+  local clients ={} 
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.buf_get_clients()
+  end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('hint')
-  elseif not vim.tbl_isempty(lsp.buf_get_clients(0)) then
+  elseif not vim.tbl_isempty(clients(0)) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.HINT)
   end
   return ''
 end
 
 function M.get_diagnostic_info()
+  local clients ={} 
+
+  if vim.lsp.get_clients then
+    clients = vim.lsp.get_clients()
+  else
+    ---@diagnostic disable-next-line: deprecated 
+    clients = vim.lsp.buf_get_clients()
+  end
   if vim.fn.exists('*coc#rpc#start_server') == 1 then
     return get_coc_diagnostic('information')
-  elseif not vim.tbl_isempty(lsp.buf_get_clients(0)) then
+  elseif not vim.tbl_isempty(clients(0)) then
     return get_nvim_lsp_diagnostic(diagnostic.severity.INFO)
   end
   return ''
