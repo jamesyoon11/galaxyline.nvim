@@ -18,7 +18,7 @@ local function get_nvim_lsp_diagnostic(diag_type)
   local clients ={} 
 
   if vim.lsp.get_clients then
-    clients = vim.lsp.get_clients()
+    clients = vim.lsp.get_clients({ bufnr = 0 })
   else
     ---@diagnostic disable-next-line: deprecated 
     clients = vim.lsp.buf_get_clients()
@@ -46,7 +46,7 @@ function M.get_diagnostic_error()
   local clients ={} 
 
   if vim.lsp.get_clients then
-    clients = vim.lsp.get_clients()
+    clients = vim.lsp.get_clients({ bufnr = 0 })
   else
     ---@diagnostic disable-next-line: deprecated 
     clients = vim.lsp.buf_get_clients()
@@ -63,7 +63,7 @@ function M.get_diagnostic_warn()
   local clients ={} 
 
   if vim.lsp.get_clients then
-    clients = vim.lsp.get_clients()
+    clients = vim.lsp.get_clients({ bufnr = 0 })
   else
     ---@diagnostic disable-next-line: deprecated 
     clients = vim.lsp.buf_get_clients()
@@ -81,7 +81,7 @@ function M.get_diagnostic_hint()
   local clients ={} 
 
   if vim.lsp.get_clients then
-    clients = vim.lsp.get_clients()
+    clients = vim.lsp.get_clients({ bufnr = 0 })
   else
     ---@diagnostic disable-next-line: deprecated 
     clients = vim.lsp.buf_get_clients()
@@ -98,7 +98,7 @@ function M.get_diagnostic_info()
   local clients ={} 
 
   if vim.lsp.get_clients then
-    clients = vim.lsp.get_clients()
+    clients = vim.lsp.get_clients({ bufnr = 0 })
   else
     ---@diagnostic disable-next-line: deprecated 
     clients = vim.lsp.buf_get_clients()
